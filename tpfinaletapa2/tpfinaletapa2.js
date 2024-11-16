@@ -1,6 +1,5 @@
 //tengo que reveer los comentarios, reescribirlos
-//ajustar posiciones de botones o de texto
-//reveer el tiempo o la cantidad de algunas cosas (instrucciones, corazones, puntaje)
+
 //Yamile Nazarena Erbes 94700/7
 
 
