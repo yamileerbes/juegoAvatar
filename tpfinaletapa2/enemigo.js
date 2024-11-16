@@ -7,9 +7,9 @@ class Enemigo {
     } else {
       this.posX = width; // empieza en el borde derecho
     }
-    this.posY = random(height - 120, height - 60); // Zona baja aleatoria
+    this.posY = random(height - 150, height - 60); // Zona baja aleatoria
     this.tam = 50;
-    this.velocidad = random(2, 8);
+    this.velocidad = random(3, 10);
     this.colisionado = false;
   }
 

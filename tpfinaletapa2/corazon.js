@@ -9,7 +9,7 @@ class Corazon {
     }
     this.posY = random(height - 120, height - 60);
     this.tam = 50;
-    this.velocidad = random(2, 6);
+    this.velocidad = random(2, 7);
     this.recolectado = false;
   }
 

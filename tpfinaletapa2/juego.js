@@ -5,7 +5,9 @@ class Juego {
     this.enemigos = [];
     this.corazones = [];
     this.puntos = 0; // Contador de corazones recolectados
+    this.meta = 5;
     this.vidas = 3; // Vidas del personaje
+    this.totalVida=3;
     this.timerC = 4;
     this.timerE = 6;
     this.instrucciones = new Instrucciones();
@@ -30,7 +32,7 @@ class Juego {
   dibujarInicio() {
     image(imgPantallas[0], 0, 0, width, height);
     image(imgBotones[0], width / 2 - 50, height / 2);
-    image(imgBotones[1], width / 2 - 50, height / 2 + 60);
+    image(imgBotones[1], width / 2 - 58, height / 2 + 60);
   }
 
   dibujarJuego() {
@@ -67,14 +69,14 @@ class Juego {
     }
     if (this.timerE === 0) {
       this.enemigos.push(new Enemigo()); // Añadir enemigo con dirección aleatoria
-      this.timerE = 8;
+      this.timerE = 5;
     }
     if (frameCount%60 === 0 && this.timerC > 0) {
       this.timerC--;
     }
     if (this.timerC ===0) {
       this.corazones.push(new Corazon());
-      this.timerC = 5;
+      this.timerC = 7;
     }
 
 
@@ -82,9 +84,9 @@ class Juego {
     fill(255);
     textSize(20);
     image(imgCH, 10, 20, 50, 60);
-    text( this.puntos, 65, 35);
+    text( this.puntos + " / " + this.meta, 90, 50);
     image(imgEH, 10, 85, 50, 60);
-    text(this.vidas, 65, 85+35);
+    text(this.vidas + " / " + this.totalVida, 90, 85+35);
 
     // Condiciones de ganar o perder
     if (this.puntos >= 5) {
@@ -109,16 +111,18 @@ class Juego {
 
   dibujarCreditos() {
     image(imgPantallas[4], 0, 0, width, height);
+    image (imgBotones[4], 250, 300);
+    
   }
   dibujarGanaste() {
     image(imgPantallas[2], 0, 0, width, height);
-    image (imgBotones[5], 150, 100);
-    image (imgBotones[4], 210, 300);
+    image (imgBotones[5], 165, 100);
+    image (imgBotones[4], 250, 300);
   }
   dibujarPerdiste() {
     image(imgPantallas[3], 0, 0, width, height);
     image (imgBotones[3], 150, 100);
-    image (imgBotones[2], 210, 300);
+    image (imgBotones[2], 250, 300);
   }
   iniciarMusica() {
     if (!songPlaying) {
@@ -149,26 +153,32 @@ class Juego {
       // Detectar clic en el botón Jugar
       if (x > width / 2 - 50 && x < width / 2 + 50 && y > height / 2 && y < height / 2 + 50) {
         this.estado = "juego";
+        this.instrucciones.temporizador = 5;
+        this.instrucciones.mostrarInstruccion = true;
+        this.instrucciones.instruccionActual = 0 ;
       }
       // Detectar clic en el botón Créditos
-      else if (x > width / 2 - 50 && x < width / 2 + 50 && y > height / 2 + 60 && y < height / 2 + 110) {
+      else if (x > width / 2 - 58 && x < width / 2 + 58 && y > height / 2 + 60 && y < height / 2 + 110) {
         this.estado = "creditos";
       }
     } else if (this.estado === "creditos") {
-      // Volver al inicio si clic en el fondo de créditos
+       if (x > 250 && x < 360  && y > 300 && y < 300 + 100) {
+        this.estado = "inicio"; 
+      }
       this.estado = "inicio";
     } else if (this.estado === "ganaste") {
-      if (x > 210 && x < 310  && y > 300 && y < 300 + 100) {
+      if (x > 250 && x < 360  && y > 300 && y < 300 + 100) {
         this.estado = "inicio";
         this.vidas = 3;
         this.puntos = 0;
       }
     } else if (this.estado === "perdiste") {
-      if (x > 210 && x < 310  && y > 300 && y < 300 + 100) {
+      if (x > 250 && x < 360  && y > 300 && y < 300 + 100) {
         this.estado = "juego";
         this.vidas = 3;
         this.puntos = 0;
         this.personaje.dibujar();
+       
       }
     }
   }
